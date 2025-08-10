@@ -4,7 +4,12 @@
 name = "code-jam-template"
 description = "Add your description here"
 authors = [
-    { name = "Your Name" }
+    { name = "Mannyvv" },
+    { name = "afx8732" },
+    { name = "enskyeing" },
+    { name = "husseinhirani" },
+    { name = "jks85" },
+    { name = "MeGaGiGaGon" },
 ]
 version = "0.1.0"
 readme = "README.md"
@@ -17,10 +22,7 @@ dependencies = []
 # This `dev` group contains all the development requirements for our linting toolchain.
 # Don't forget to pin your dependencies!
 # This list will have to be migrated if you wish to use another dependency manager.
-dev = [
-    "pre-commit~=4.2.0",
-    "ruff~=0.12.2",
-]
+dev = ["pre-commit~=4.2.0", "ruff~=0.12.2"]
 
 [tool.ruff]
 # Increase the line length. This breaks PEP8 but it is way easier to work with.
