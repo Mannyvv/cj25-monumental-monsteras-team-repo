@@ -86,17 +86,23 @@ class input_view(ui.element):  # noqa: N801 this is the nicegui convention
         if len(user_text) == 0:
             return iter(())
 
-        mask = bytearray(user_text[i] == self.full_text[i] for i in range(min(len(self.full_text), len(user_text))))
+        mask = []
+        for i in range(len(user_text)):
+            if i < len(self.full_text):
+                mask.append(user_text[i] == self.full_text[i])
+            else:
+                mask.append(False)
+
         index = 0
         cur_v = mask[0]
 
         while index < len(mask):
-            next_change_at = mask.find(cur_v ^ 1, index)
-            if next_change_at == -1:
-                next_change_at = len(mask)
-            yield (user_text[index:next_change_at], bool(cur_v))
+            next_change_at = index + 1
+            while next_change_at < len(mask) and mask[next_change_at] == cur_v:
+                next_change_at += 1
+            yield (user_text[index:next_change_at], cur_v)
             index = next_change_at
-            cur_v ^= 1
+            cur_v = not cur_v
 
     def set_original_text(self, value: str) -> None:
         """Reset the **background** text. You're probably looking for `set_text`.
@@ -135,7 +141,8 @@ class input_view(ui.element):  # noqa: N801 this is the nicegui convention
             return
         parsed = self._parse_text(value)
         with self.text_input:
-            for tok in parsed:
-                ui.label(tok[0]).classes("c" if tok[1] else "w")
+            for tok, correct in parsed:
+                ui.html(tok.replace(" ", "&nbsp;")).classes("c" if correct else "w")
+
             if len(value) < len(self.full_text):
                 ui.label("_").classes("cursor")
