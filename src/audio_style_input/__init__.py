@@ -64,7 +64,7 @@ class AudioEditorComponent(input_method_proto.IInputMethod):
             start_button = ui.button("Get started!", color="#ff9900")
         return intro_card, start_button
 
-    def create_main_content(self) -> tuple[ui.column, ui.image, ui.label, ui.row]:
+    def create_main_content(self) -> tuple[ui.column, ui.image, ui.label, ui.row, ui.row]:
         """Create main content with record image, letter label, and button row.
 
         Returns:
