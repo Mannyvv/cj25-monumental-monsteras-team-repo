@@ -1,72 +1,56 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
-# This section contains metadata about your project.
-# Don't forget to change the name, description, and authors to match your project!
 name = "code-jam-template"
-description = "Add your description here"
-authors = [
-    { name = "Mannyvv" },
-    { name = "afx8732" },
-    { name = "enskyeing" },
-    { name = "husseinhirani" },
-    { name = "jks85" },
-    { name = "MeGaGiGaGon" },
-]
 version = "0.1.0"
+description = "A template for the Python Code Jam 2025"
 readme = "README.md"
-# Target Python 3.12. If you decide to use a different version of Python
-# you will need to update this value.
-requires-python = ">=3.12"
+requires-python = ">=3.13"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"},
+]
+keywords = ["python", "code-jam", "template"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+]
 dependencies = [
-    "nicegui~=2.22.2",
-    "Faker~=37.5.3",
+    "nicegui>=2.0.0",
+    "Faker>=20.0.0",
 ]
 
-[dependency-groups]
-# This `dev` group contains all the development requirements for our linting toolchain.
-# Don't forget to pin your dependencies!
-# This list will have to be migrated if you wish to use another dependency manager.
+[project.optional-dependencies]
 dev = [
-    "pre-commit~=4.2.0",
-    "ruff~=0.12.2",
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
 ]
 
-[tool.ruff]
-# Increase the line length. This breaks PEP8 but it is way easier to work with.
-# The original reason for this limit was a standard vim terminal is only 79 characters,
-# but this doesn't really apply anymore.
-line-length = 119
-# Automatically fix auto-fixable issues.
-fix = true
-# The directory containing the source code. If you choose a different project layout
-# you will need to update this value.
-src = ["src"]
+[project.urls]
+Homepage = "https://github.com/yourusername/code-jam-template"
+Repository = "https://github.com/yourusername/code-jam-template.git"
+Issues = "https://github.com/yourusername/code-jam-template/issues"
 
-[tool.ruff.lint]
-# Enable all linting rules.
-select = ["ALL"]
-# Ignore some of the most obnoxious linting errors.
-ignore = [
-    # Missing docstrings.
-    "D100",
-    "D104",
-    "D105",
-    "D106",
-    "D107",
-    # Docstring whitespace.
-    "D203",
-    "D213",
-    # Docstring punctuation.
-    "D415",
-    # Docstring quotes.
-    "D301",
-    # Builtins.
-    "A",
-    # Print statements.
-    "T20",
-    # TODOs.
-    "TD002",
-    "TD003",
-    "FIX",
-    # Conflicts with formatter.
-    "COM812",
-]
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.black]
+line-length = 88
+target-version = ['py313']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
